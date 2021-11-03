@@ -1613,4 +1613,25 @@ public class HtmlParserTest {
         assertEquals("<template><select></select><input>&lt;</template>",
             TextUtil.stripNewlines(doc.head().html()));
     }
+    
+    @Test void notClosingTagWithSelfClosingTag() {
+    	// https://github.com/jhy/jsoup/issues/917
+    	// self closing tag should be ignored when it is followed by a closing tag
+    	Document doc = Jsoup.parse("<a />content</a>");
+    	assertNotNull(doc);
+    	assertEquals("<a>content</a>", TextUtil.stripNewlines(doc.body().html())); // self closing tag should be ignored
+    }
+    
+    @Test void selfClosingTagShouldNotIgnore() {
+    	// self closing tag should not be ignored when it is followed by a open tag
+    	// self closing tag should not be ignore when it is not followed by any tag
+    	Document doc = Jsoup.parse("<a src=\"123\"/> contentB");
+    	assertNotNull(doc);
+    	assertEquals("<a src=\"123\"></a> contentB", TextUtil.stripNewlines(doc.body().html())); 
+    	
+    	doc = Jsoup.parse("<a src=\"123\"/> contentB <a>");
+    	assertNotNull(doc);
+    	assertEquals("<a src=\"123\"></a> contentB <a></a>", TextUtil.stripNewlines(doc.body().html()));
+    }
 }
+
