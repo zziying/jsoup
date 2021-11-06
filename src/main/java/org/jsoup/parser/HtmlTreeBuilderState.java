@@ -287,6 +287,10 @@ enum HtmlTreeBuilderState {
                     } else if (tb.framesetOk() && isWhitespace(c)) { // don't check if whitespace if frames already closed
                         tb.reconstructFormattingElements();
                         tb.insert(c);
+                    } else if (tb.hasSelfClosingAnchor()) {
+                    	tb.reconstructFormattingElements();
+                    	tb.insertBetween(c);
+                    	tb.framesetOk(false);
                     } else {
                         tb.reconstructFormattingElements();
                         tb.insert(c);
@@ -335,6 +339,7 @@ enum HtmlTreeBuilderState {
                             tb.removeFromStack(remainingA);
                         }
                     }
+                    tb.setSelfClosingAnchor();
                     tb.reconstructFormattingElements();
                     el = tb.insert(startTag);
                     tb.pushActiveFormattingElements(el);

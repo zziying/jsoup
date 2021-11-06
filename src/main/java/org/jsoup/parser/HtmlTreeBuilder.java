@@ -48,6 +48,7 @@ public class HtmlTreeBuilder extends TreeBuilder {
     private HtmlTreeBuilderState originalState; // original / marked state
 
     private boolean baseUriSetFromDoc;
+    private boolean selfClosingAnchor; // handle self closing tag when empty end tag presents
     private @Nullable Element headElement; // the current head element
     private @Nullable FormElement formElement; // the current form element
     private @Nullable Element contextElement; // fragment parse context -- could be null even if fragment parsing
@@ -87,6 +88,7 @@ public class HtmlTreeBuilder extends TreeBuilder {
         framesetOk = true;
         fosterInserts = false;
         fragmentParsing = false;
+        selfClosingAnchor = false;
     }
 
     List<Node> parseFragment(String inputFragment, @Nullable Element context, String baseUri, Parser parser) {
@@ -186,6 +188,14 @@ public class HtmlTreeBuilder extends TreeBuilder {
 
     HtmlTreeBuilderState originalState() {
         return originalState;
+    }
+    
+    void setSelfClosingAnchor() {
+    	this.selfClosingAnchor = true;
+    }
+    
+    boolean hasSelfClosingAnchor() {
+    	return this.selfClosingAnchor;
     }
 
     void framesetOk(boolean framesetOk) {
@@ -309,6 +319,15 @@ public class HtmlTreeBuilder extends TreeBuilder {
         else
             node = new TextNode(data);
         el.appendChild(node); // doesn't use insertNode, because we don't foster these; and will always have a stack.
+    }
+    
+    void insertBetween(Token.Character characterToken) {
+    	Element toBeInsert = currentElement().child(0);
+    	final String tagName = toBeInsert.normalName();
+    	final String data = characterToken.getData();
+    	
+    	final Node node = new TextNode(data);
+    	toBeInsert.appendChild(node);
     }
 
     private void insertNode(Node node) {
