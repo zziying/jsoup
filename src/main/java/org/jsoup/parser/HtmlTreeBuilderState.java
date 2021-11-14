@@ -6,7 +6,6 @@ import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.DocumentType;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
 
 import java.util.ArrayList;
 
@@ -287,10 +286,6 @@ enum HtmlTreeBuilderState {
                     } else if (tb.framesetOk() && isWhitespace(c)) { // don't check if whitespace if frames already closed
                         tb.reconstructFormattingElements();
                         tb.insert(c);
-                    } else if (tb.hasSelfClosingAnchor()) {
-                    	tb.reconstructFormattingElements();
-                    	tb.insertBetween(c);
-                    	tb.framesetOk(false);
                     } else {
                         tb.reconstructFormattingElements();
                         tb.insert(c);
@@ -675,6 +670,16 @@ enum HtmlTreeBuilderState {
 
         private boolean inBodyEndTag(Token t, HtmlTreeBuilder tb) {
             final Token.EndTag endTag = t.asEndTag();
+            if (endTag.name().equals("a")) {
+            	if (tb.hasSelfClosingAnchor()) {
+            		tb.handledSelfClosingAnchor();
+            	} else {
+            		tb.reconstructFormattingElements();
+                	tb.popAndInsert();
+                	tb.reconstructFormattingElements();
+                	tb.framesetOk(false);
+            	}
+            }
             final String name = endTag.normalName();
 
             switch (name) {

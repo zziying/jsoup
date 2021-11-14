@@ -194,6 +194,10 @@ public class HtmlTreeBuilder extends TreeBuilder {
     	this.selfClosingAnchor = true;
     }
     
+    void handledSelfClosingAnchor() {
+    	this.selfClosingAnchor = false;
+    }
+    
     boolean hasSelfClosingAnchor() {
     	return this.selfClosingAnchor;
     }
@@ -321,13 +325,12 @@ public class HtmlTreeBuilder extends TreeBuilder {
         el.appendChild(node); // doesn't use insertNode, because we don't foster these; and will always have a stack.
     }
     
-    void insertBetween(Token.Character characterToken) {
-    	Element toBeInsert = currentElement().child(0);
-    	final String tagName = toBeInsert.normalName();
-    	final String data = characterToken.getData();
-    	
-    	final Node node = new TextNode(data);
-    	toBeInsert.appendChild(node);
+    void popAndInsert() {
+    	Element currElem = currentElement();
+    	ArrayList<Node> nodes = new ArrayList<>(currElem.childNodes());
+    	Element toBeInsert = (Element) nodes.get(0);
+    	Node toBePop = nodes.remove(nodes.size() - 1);
+    	toBeInsert.appendChild(toBePop);
     }
 
     private void insertNode(Node node) {
