@@ -1048,4 +1048,33 @@ public class SelectorTest {
         assertEquals(0, e.size());
         assertNotEquals(a, e);
     }
+    
+
+    @Test void ignoreClassAndIdIdentifiers() {
+    	// Class and Id Identifiers ("." and "#") should be ignored when there's no class specified.
+    	// https://github.com/jhy/jsoup/issues/1441
+    	Document doc = Jsoup.parse("<root>"
+    			+ "<node.a>hello .a</node.a>"
+    			+ "<node#a>hello #a</node#a>"
+    			+ "</root>");
+    	assertEquals("hello .a", doc.select("node.a"));
+    	assertEquals("hello #a", doc.select("node#a"));
+    }
+    
+    @Test void notIgnoreClassAndIdIdentifiers() {
+    	// Class and Id Identifier ("." and "#") should not be ignored when there's class specified.
+    	// https://github.com/jhy/jsoup/issues/1441
+    	Document doc = Jsoup.parse("<root>"
+    			+ "<node.a>hello .a</node.a>"
+    			+ "<node#a>hello #a</node#a>"
+    			+ "<node class=\"a\">hello .a</node>"
+    			+ "<node id=\"a\">heelo #a</node>"
+    			+ "</root>");
+    	
+    	Elements a = doc.select("node.a");
+    	Elements b = doc.select("node#a");
+    	assertEquals(2, a.size());
+    	assertEquals(2, b.size());
+    }
+    
 }
