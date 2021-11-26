@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Base combining (and, or) evaluator.
@@ -50,18 +51,39 @@ public abstract class CombiningEvaluator extends Evaluator {
 
         @Override
         public boolean matches(Element root, Element node) {
+        	boolean result = false;
+        	List<Evaluator> accumulated = new ArrayList<Evaluator>();
+        	accumulated.add(evaluators.get(num - 1));
+        	for (int i = num - 2; i >= 0; i--) {
+        		Evaluator s = evaluators.get(i);
+        		Evaluator lastElement = accumulated.get(accumulated.size() - 1);
+        		accumulated.add(s.append(lastElement));
+        	}
             for (int i = num - 1; i >= 0; i--) { // process backwards so that :matchText is evaled earlier, to catch parent query. todo - should redo matchText to virtually expand during match, not pre-match (see SelectorTest#findBetweenSpan)
                 Evaluator s = evaluators.get(i);
-                if (!s.matches(root, node))
-                    return false;
+                Evaluator a = accumulated.get(i);
+                if (!s.matches(root, node)){
+                	result = false;
+                } else if (!a.matches(root, node)){
+                	result = false;
+                } else {
+                	result = true;
+                	break;
+                }
             }
-            return true;
+            return result;
         }
 
         @Override
         public String toString() {
             return StringUtil.join(evaluators, "");
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			// TODO Auto-generated method stub
+			return null;
+		}
     }
 
     public static final class Or extends CombiningEvaluator {
@@ -103,5 +125,11 @@ public abstract class CombiningEvaluator extends Evaluator {
         public String toString() {
             return StringUtil.join(evaluators, ", ");
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			// TODO Auto-generated method stub
+			return null;
+		}
     }
 }

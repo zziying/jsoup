@@ -99,6 +99,15 @@ public class Element extends Node {
         }
         return childNodes;
     }
+    
+    public List<Node> specialChildNodes() {
+    	
+    	for (Node child: childNodes) {
+    		
+    	}
+    	
+    	return null;
+    }
 
     @Override
     protected boolean hasAttributes() {

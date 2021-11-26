@@ -13,6 +13,12 @@ abstract class StructuralEvaluator extends Evaluator {
         public boolean matches(Element root, Element element) {
             return root == element;
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			// TODO Auto-generated method stub
+			return null;
+		}
     }
 
     static class Has extends StructuralEvaluator {
@@ -40,6 +46,12 @@ abstract class StructuralEvaluator extends Evaluator {
         public String toString() {
             return String.format(":has(%s)", evaluator);
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			// TODO Auto-generated method stub
+			return null;
+		}
     }
 
     static class Not extends StructuralEvaluator {
@@ -55,6 +67,12 @@ abstract class StructuralEvaluator extends Evaluator {
         public String toString() {
             return String.format(":not(%s)", evaluator);
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			// TODO Auto-generated method stub
+			return null;
+		}
     }
 
     static class Parent extends StructuralEvaluator {
@@ -81,6 +99,12 @@ abstract class StructuralEvaluator extends Evaluator {
         public String toString() {
             return String.format("%s ", evaluator);
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			// TODO Auto-generated method stub
+			return null;
+		}
     }
 
     static class ImmediateParent extends StructuralEvaluator {
@@ -100,6 +124,12 @@ abstract class StructuralEvaluator extends Evaluator {
         public String toString() {
             return String.format("%s > ", evaluator);
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			// TODO Auto-generated method stub
+			return null;
+		}
     }
 
     static class PreviousSibling extends StructuralEvaluator {
@@ -126,6 +156,12 @@ abstract class StructuralEvaluator extends Evaluator {
         public String toString() {
             return String.format("%s ~ ", evaluator);
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			// TODO Auto-generated method stub
+			return null;
+		}
     }
 
     static class ImmediatePreviousSibling extends StructuralEvaluator {
@@ -145,5 +181,12 @@ abstract class StructuralEvaluator extends Evaluator {
         public String toString() {
             return String.format("%s + ", evaluator);
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
     }
 }

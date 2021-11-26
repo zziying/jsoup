@@ -36,6 +36,9 @@ public abstract class Evaluator {
      * <tt>false</tt> otherwise
      */
     public abstract boolean matches(Element root, Element element);
+    
+    
+    public abstract Evaluator append(Evaluator e);
 
     /**
      * Evaluator for tag name
@@ -56,6 +59,13 @@ public abstract class Evaluator {
         public String toString() {
             return String.format("%s", tagName);
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			String appended = this.tagName.concat(e.toString());
+        	return new Tag(appended);
+		}
+        
     }
 
 
@@ -78,6 +88,12 @@ public abstract class Evaluator {
         public String toString() {
             return String.format("%s", tagName);
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			String appended = this.tagName.concat(e.toString());
+        	return new TagEndsWith(appended);
+		}
     }
 
     /**
@@ -100,13 +116,19 @@ public abstract class Evaluator {
             return String.format("#%s", id);
         }
 
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			String appended = this.id.concat(e.toString());
+        	return new Id(appended);
+		}
     }
 
     /**
      * Evaluator for element class
      */
     public static final class Class extends Evaluator {
-        private final String className;
+        private String className;
 
         public Class(String className) {
             this.className = className;
@@ -120,6 +142,12 @@ public abstract class Evaluator {
         @Override
         public String toString() {
             return String.format(".%s", className);
+        }
+        
+        @Override
+        public Evaluator append(Evaluator e) {
+        	String appended = this.className.concat(e.toString());
+        	return new Class(appended);
         }
 
     }
@@ -143,6 +171,12 @@ public abstract class Evaluator {
         public String toString() {
             return String.format("[%s]", key);
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			String appended = this.key.concat(e.toString());
+        	return new Attribute(appended);
+		}
 
     }
 
@@ -172,6 +206,12 @@ public abstract class Evaluator {
             return String.format("[^%s]", keyPrefix);
         }
 
+		@Override
+		public Evaluator append(Evaluator e) {
+			String appended = this.keyPrefix.concat(e.toString());
+        	return new AttributeStarting(appended);
+		}
+
     }
 
     /**
@@ -191,6 +231,12 @@ public abstract class Evaluator {
         public String toString() {
             return String.format("[%s=%s]", key, value);
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			String appended = this.key.concat(e.toString());
+        	return new AttributeWithValue(key, appended);
+		}
 
     }
 
@@ -212,6 +258,12 @@ public abstract class Evaluator {
             return String.format("[%s!=%s]", key, value);
         }
 
+		@Override
+		public Evaluator append(Evaluator e) {
+			String appended = this.key.concat(e.toString());
+        	return new AttributeWithValueNot(key, appended);
+		}
+
     }
 
     /**
@@ -231,6 +283,12 @@ public abstract class Evaluator {
         public String toString() {
             return String.format("[%s^=%s]", key, value);
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			String appended = this.key.concat(e.toString());
+        	return new AttributeWithValueStarting(key, appended);
+		}
 
     }
 
@@ -252,6 +310,11 @@ public abstract class Evaluator {
             return String.format("[%s$=%s]", key, value);
         }
 
+		@Override
+		public Evaluator append(Evaluator e) {
+			String appended = this.key.concat(e.toString());
+        	return new AttributeWithValueEnding(key, appended);
+		}
     }
 
     /**
@@ -272,6 +335,11 @@ public abstract class Evaluator {
             return String.format("[%s*=%s]", key, value);
         }
 
+		@Override
+		public Evaluator append(Evaluator e) {
+			String appended = this.key.concat(e.toString());
+        	return new AttributeWithValueContaining(key, appended);
+		}
     }
 
     /**
@@ -295,6 +363,12 @@ public abstract class Evaluator {
         public String toString() {
             return String.format("[%s~=%s]", key, pattern.toString());
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			String appended = this.key.concat(e.toString());
+			return new AttributeWithValueContaining(key, appended);
+		}
 
     }
 
@@ -338,6 +412,11 @@ public abstract class Evaluator {
         public String toString() {
             return "*";
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+        	return new AttributeWithValue("", "");
+		}
     }
 
     /**
@@ -357,6 +436,11 @@ public abstract class Evaluator {
         public String toString() {
             return String.format(":lt(%d)", index);
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
 
     }
 
@@ -378,6 +462,10 @@ public abstract class Evaluator {
             return String.format(":gt(%d)", index);
         }
 
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
     }
 
     /**
@@ -398,6 +486,11 @@ public abstract class Evaluator {
             return String.format(":eq(%d)", index);
         }
 
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
+
     }
 
     /**
@@ -413,6 +506,11 @@ public abstract class Evaluator {
 		@Override
 		public String toString() {
 			return ":last-child";
+		}
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
 		}
     }
 
@@ -492,6 +590,11 @@ public abstract class Evaluator {
 		protected String getPseudoClass() {
 			return "nth-child";
 		}
+		
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
     }
 
     /**
@@ -514,6 +617,11 @@ public abstract class Evaluator {
 		@Override
 		protected String getPseudoClass() {
 			return "nth-last-child";
+		}
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
 		}
     }
 
@@ -542,6 +650,12 @@ public abstract class Evaluator {
 		protected String getPseudoClass() {
 			return "nth-of-type";
 		}
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
+
     }
 
     public static class IsNthLastOfType extends CssNthEvaluator {
@@ -566,6 +680,12 @@ public abstract class Evaluator {
 		protected String getPseudoClass() {
 			return "nth-last-of-type";
 		}
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
+
     }
 
     /**
@@ -582,6 +702,12 @@ public abstract class Evaluator {
     	public String toString() {
     		return ":first-child";
     	}
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
+
     }
 
     /**
@@ -599,6 +725,10 @@ public abstract class Evaluator {
     	public String toString() {
     		return ":root";
     	}
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
     }
 
     public static final class IsOnlyChild extends Evaluator {
@@ -611,6 +741,10 @@ public abstract class Evaluator {
     	public String toString() {
     		return ":only-child";
     	}
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
     }
 
     public static final class IsOnlyOfType extends Evaluator {
@@ -630,6 +764,10 @@ public abstract class Evaluator {
     	public String toString() {
     		return ":only-of-type";
     	}
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
     }
 
     public static final class IsEmpty extends Evaluator {
@@ -645,6 +783,10 @@ public abstract class Evaluator {
     	public String toString() {
     		return ":empty";
     	}
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
     }
 
     /**
@@ -679,6 +821,11 @@ public abstract class Evaluator {
         public String toString() {
             return String.format(":contains(%s)", searchText);
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
     }
 
     /**
@@ -702,6 +849,11 @@ public abstract class Evaluator {
         public String toString() {
             return String.format(":containsWholeText(%s)", searchText);
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
     }
 
     /**
@@ -723,6 +875,11 @@ public abstract class Evaluator {
         public String toString() {
             return String.format(":containsData(%s)", searchText);
         }
+        
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
     }
 
     /**
@@ -744,6 +901,11 @@ public abstract class Evaluator {
         public String toString() {
             return String.format(":containsOwn(%s)", searchText);
         }
+        
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
     }
 
     /**
@@ -766,6 +928,12 @@ public abstract class Evaluator {
         public String toString() {
             return String.format(":matches(%s)", pattern);
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
+
     }
 
     /**
@@ -788,6 +956,12 @@ public abstract class Evaluator {
         public String toString() {
             return String.format(":matchesOwn(%s)", pattern);
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
+
     }
 
     public static final class MatchText extends Evaluator {
@@ -811,5 +985,10 @@ public abstract class Evaluator {
         public String toString() {
             return ":matchText";
         }
+
+		@Override
+		public Evaluator append(Evaluator e) {
+			return new AttributeWithValue("", "");
+		}
     }
 }
