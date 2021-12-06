@@ -14,9 +14,14 @@ abstract class StructuralEvaluator extends Evaluator {
             return root == element;
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
-			// TODO Auto-generated method stub
 			return e;
 		}
     }
@@ -47,9 +52,14 @@ abstract class StructuralEvaluator extends Evaluator {
             return String.format(":has(%s)", evaluator);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
-			// TODO Auto-generated method stub
 			return e;
 		}
     }
@@ -68,9 +78,14 @@ abstract class StructuralEvaluator extends Evaluator {
             return String.format(":not(%s)", evaluator);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
-			// TODO Auto-generated method stub
 			return e;
 		}
     }
@@ -100,9 +115,14 @@ abstract class StructuralEvaluator extends Evaluator {
             return String.format("%s ", evaluator);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
-			// TODO Auto-generated method stub
 			return e;
 		}
     }
@@ -125,9 +145,14 @@ abstract class StructuralEvaluator extends Evaluator {
             return String.format("%s > ", evaluator);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
-			// TODO Auto-generated method stub
 			return e;
 		}
     }
@@ -157,9 +182,14 @@ abstract class StructuralEvaluator extends Evaluator {
             return String.format("%s ~ ", evaluator);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
-			// TODO Auto-generated method stub
 			return e;
 		}
     }
@@ -182,9 +212,14 @@ abstract class StructuralEvaluator extends Evaluator {
             return String.format("%s + ", evaluator);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
-			// TODO Auto-generated method stub
 			return e;
 		}
 

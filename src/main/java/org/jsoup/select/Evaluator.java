@@ -1,7 +1,6 @@
 package org.jsoup.select;
 
 import org.jsoup.helper.Validate;
-import org.jsoup.internal.StringUtil;
 import org.jsoup.nodes.Comment;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.DocumentType;
@@ -37,7 +36,12 @@ public abstract class Evaluator {
      */
     public abstract boolean matches(Element root, Element element);
     
-    
+    /**
+     * Append the current evaluator with another evaluator e.
+     * 
+     * @param e Another evaluator
+     * @return Return a new modified (appended) Evaluator
+     * */
     public abstract Evaluator append(Evaluator e);
 
     /**
@@ -60,6 +64,12 @@ public abstract class Evaluator {
             return String.format("%s", tagName);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			String appended = this.tagName.concat(e.toString());
@@ -89,6 +99,12 @@ public abstract class Evaluator {
             return String.format("%s", tagName);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			String appended = this.tagName.concat(e.toString());
@@ -116,7 +132,12 @@ public abstract class Evaluator {
             return String.format("#%s", id);
         }
 
-
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			String appended = this.id.concat(e.toString());
@@ -144,6 +165,12 @@ public abstract class Evaluator {
             return String.format(".%s", className);
         }
         
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
         @Override
         public Evaluator append(Evaluator e) {
         	String appended = this.className.concat(e.toString());
@@ -172,6 +199,12 @@ public abstract class Evaluator {
             return String.format("[%s]", key);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			String appended = this.key.concat(e.toString());
@@ -206,6 +239,12 @@ public abstract class Evaluator {
             return String.format("[^%s]", keyPrefix);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			String appended = this.keyPrefix.concat(e.toString());
@@ -232,6 +271,12 @@ public abstract class Evaluator {
             return String.format("[%s=%s]", key, value);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			String appended = this.key.concat(e.toString());
@@ -258,6 +303,12 @@ public abstract class Evaluator {
             return String.format("[%s!=%s]", key, value);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			String appended = this.key.concat(e.toString());
@@ -284,6 +335,12 @@ public abstract class Evaluator {
             return String.format("[%s^=%s]", key, value);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			String appended = this.key.concat(e.toString());
@@ -310,6 +367,12 @@ public abstract class Evaluator {
             return String.format("[%s$=%s]", key, value);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			String appended = this.key.concat(e.toString());
@@ -335,6 +398,12 @@ public abstract class Evaluator {
             return String.format("[%s*=%s]", key, value);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			String appended = this.key.concat(e.toString());
@@ -364,6 +433,12 @@ public abstract class Evaluator {
             return String.format("[%s~=%s]", key, pattern.toString());
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			String appended = this.key.concat(e.toString());
@@ -413,6 +488,12 @@ public abstract class Evaluator {
             return "*";
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
         	return new AttributeWithValue("", "");
@@ -437,6 +518,12 @@ public abstract class Evaluator {
             return String.format(":lt(%d)", index);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -462,6 +549,12 @@ public abstract class Evaluator {
             return String.format(":gt(%d)", index);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -486,6 +579,12 @@ public abstract class Evaluator {
             return String.format(":eq(%d)", index);
         }
 
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -508,6 +607,12 @@ public abstract class Evaluator {
 			return ":last-child";
 		}
 
+		/**
+	     * Append the current evaluator with another evaluator e.
+	     * 
+	     * @param e Another evaluator
+	     * @return Return a new modified (appended) Evaluator
+	     * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -591,6 +696,12 @@ public abstract class Evaluator {
 			return "nth-child";
 		}
 		
+		/**
+	     * Append the current evaluator with another evaluator e.
+	     * 
+	     * @param e Another evaluator
+	     * @return Return a new modified (appended) Evaluator
+	     * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -619,6 +730,12 @@ public abstract class Evaluator {
 			return "nth-last-child";
 		}
 
+		/**
+	     * Append the current evaluator with another evaluator e.
+	     * 
+	     * @param e Another evaluator
+	     * @return Return a new modified (appended) Evaluator
+	     * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -651,6 +768,12 @@ public abstract class Evaluator {
 			return "nth-of-type";
 		}
 
+		/**
+	     * Append the current evaluator with another evaluator e.
+	     * 
+	     * @param e Another evaluator
+	     * @return Return a new modified (appended) Evaluator
+	     * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -681,6 +804,12 @@ public abstract class Evaluator {
 			return "nth-last-of-type";
 		}
 
+		/**
+	     * Append the current evaluator with another evaluator e.
+	     * 
+	     * @param e Another evaluator
+	     * @return Return a new modified (appended) Evaluator
+	     * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -703,6 +832,12 @@ public abstract class Evaluator {
     		return ":first-child";
     	}
 
+    	/**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -725,6 +860,12 @@ public abstract class Evaluator {
     	public String toString() {
     		return ":root";
     	}
+    	/**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -741,6 +882,12 @@ public abstract class Evaluator {
     	public String toString() {
     		return ":only-child";
     	}
+    	/**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -764,6 +911,12 @@ public abstract class Evaluator {
     	public String toString() {
     		return ":only-of-type";
     	}
+    	/**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -783,6 +936,12 @@ public abstract class Evaluator {
     	public String toString() {
     		return ":empty";
     	}
+    	/**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -821,7 +980,12 @@ public abstract class Evaluator {
         public String toString() {
             return String.format(":contains(%s)", searchText);
         }
-
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -849,7 +1013,12 @@ public abstract class Evaluator {
         public String toString() {
             return String.format(":containsWholeText(%s)", searchText);
         }
-
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -875,7 +1044,12 @@ public abstract class Evaluator {
         public String toString() {
             return String.format(":containsData(%s)", searchText);
         }
-        
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -901,7 +1075,12 @@ public abstract class Evaluator {
         public String toString() {
             return String.format(":containsOwn(%s)", searchText);
         }
-        
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -928,7 +1107,12 @@ public abstract class Evaluator {
         public String toString() {
             return String.format(":matches(%s)", pattern);
         }
-
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -956,7 +1140,12 @@ public abstract class Evaluator {
         public String toString() {
             return String.format(":matchesOwn(%s)", pattern);
         }
-
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");
@@ -985,7 +1174,12 @@ public abstract class Evaluator {
         public String toString() {
             return ":matchText";
         }
-
+        /**
+         * Append the current evaluator with another evaluator e.
+         * 
+         * @param e Another evaluator
+         * @return Return a new modified (appended) Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return new AttributeWithValue("", "");

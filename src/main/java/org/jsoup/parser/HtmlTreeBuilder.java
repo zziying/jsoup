@@ -190,14 +190,30 @@ public class HtmlTreeBuilder extends TreeBuilder {
         return originalState;
     }
     
+    /**
+     * Set SelfClosingAnchor variable to true.
+     * This method is designed to identify whether the current node has 
+     * a self closing anchor tag.
+     * */
     void setSelfClosingAnchor() {
     	this.selfClosingAnchor = true;
     }
     
+    /**
+     * Set selfClosingAnchor variable to false.
+     * This method is designed to identify whether the current node 
+     * has a self closing anchor tag.
+     * */
     void handledSelfClosingAnchor() {
     	this.selfClosingAnchor = false;
     }
     
+    /**
+     * Return a boolean indicated whether the current node has a 
+     * self closing anchor tag.
+     * 
+     * @return a boolean indicated whether there's a self closing anchor tag.
+     * */
     boolean hasSelfClosingAnchor() {
     	return this.selfClosingAnchor;
     }
@@ -325,6 +341,10 @@ public class HtmlTreeBuilder extends TreeBuilder {
         el.appendChild(node); // doesn't use insertNode, because we don't foster these; and will always have a stack.
     }
     
+    /**
+     * Pop the previous node and insert the current element in between.
+     * 
+     * */
     void popAndInsert() {
     	Element currElem = currentElement();
     	ArrayList<Node> nodes = new ArrayList<>(currElem.childNodes());

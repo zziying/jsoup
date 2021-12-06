@@ -49,6 +49,13 @@ public abstract class CombiningEvaluator extends Evaluator {
             this(Arrays.asList(evaluators));
         }
 
+        /**
+         * Check if the two element matches. 
+         * 
+         * @param root One of the element we want to check.
+         * @param node Another element we would like to check.
+         * @return return a boolean indicates whether these two elements matches.
+         * */
         @Override
         public boolean matches(Element root, Element node) {
         	boolean result = false;
@@ -88,6 +95,11 @@ public abstract class CombiningEvaluator extends Evaluator {
             return StringUtil.join(evaluators, "");
         }
 
+        /**
+         * Return a self appended evaluator.
+         * @param e another Evaluator
+         * @return a new generated Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			// TODO Auto-generated method stub
@@ -135,6 +147,11 @@ public abstract class CombiningEvaluator extends Evaluator {
             return StringUtil.join(evaluators, ", ");
         }
 
+        /**
+         * Return a self appended evaluator.
+         * @param e another Evaluator
+         * @return a new generated Evaluator
+         * */
 		@Override
 		public Evaluator append(Evaluator e) {
 			return e;
