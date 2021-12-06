@@ -17,7 +17,7 @@ abstract class StructuralEvaluator extends Evaluator {
 		@Override
 		public Evaluator append(Evaluator e) {
 			// TODO Auto-generated method stub
-			return null;
+			return e;
 		}
     }
 
@@ -50,7 +50,7 @@ abstract class StructuralEvaluator extends Evaluator {
 		@Override
 		public Evaluator append(Evaluator e) {
 			// TODO Auto-generated method stub
-			return null;
+			return e;
 		}
     }
 
@@ -71,7 +71,7 @@ abstract class StructuralEvaluator extends Evaluator {
 		@Override
 		public Evaluator append(Evaluator e) {
 			// TODO Auto-generated method stub
-			return null;
+			return e;
 		}
     }
 
@@ -103,7 +103,7 @@ abstract class StructuralEvaluator extends Evaluator {
 		@Override
 		public Evaluator append(Evaluator e) {
 			// TODO Auto-generated method stub
-			return null;
+			return e;
 		}
     }
 
@@ -128,7 +128,7 @@ abstract class StructuralEvaluator extends Evaluator {
 		@Override
 		public Evaluator append(Evaluator e) {
 			// TODO Auto-generated method stub
-			return null;
+			return e;
 		}
     }
 
@@ -160,7 +160,7 @@ abstract class StructuralEvaluator extends Evaluator {
 		@Override
 		public Evaluator append(Evaluator e) {
 			// TODO Auto-generated method stub
-			return null;
+			return e;
 		}
     }
 
@@ -185,7 +185,7 @@ abstract class StructuralEvaluator extends Evaluator {
 		@Override
 		public Evaluator append(Evaluator e) {
 			// TODO Auto-generated method stub
-			return null;
+			return e;
 		}
 
     }

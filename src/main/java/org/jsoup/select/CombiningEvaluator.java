@@ -53,22 +53,31 @@ public abstract class CombiningEvaluator extends Evaluator {
         public boolean matches(Element root, Element node) {
         	boolean result = false;
         	List<Evaluator> accumulated = new ArrayList<Evaluator>();
-        	accumulated.add(evaluators.get(num - 1));
-        	for (int i = num - 2; i >= 0; i--) {
-        		Evaluator s = evaluators.get(i);
-        		Evaluator lastElement = accumulated.get(accumulated.size() - 1);
-        		accumulated.add(s.append(lastElement));
+        	// check whether we should use accumulated array
+        	String elementText = node.outerHtml();
+        	String endTag = elementText.substring(elementText.length() - node.tagName().length() - 3, elementText.length());
+        	if (endTag.contains(".")) {
+            	accumulated.add(evaluators.get(num - 1));
+            	for (int i = num - 2; i >= 0; i--) {
+            		Evaluator s = evaluators.get(i);
+            		Evaluator lastElement = accumulated.get(accumulated.size() - 1);
+            		accumulated.add(s.append(lastElement));
+            	}
         	}
             for (int i = num - 1; i >= 0; i--) { // process backwards so that :matchText is evaled earlier, to catch parent query. todo - should redo matchText to virtually expand during match, not pre-match (see SelectorTest#findBetweenSpan)
                 Evaluator s = evaluators.get(i);
-                Evaluator a = accumulated.get(i);
-                if (!s.matches(root, node)){
-                	result = false;
-                } else if (!a.matches(root, node)){
-                	result = false;
-                } else {
+                Evaluator a = null;
+                if (accumulated.size() != 0) {
+                	a = accumulated.get(i);
+                }
+                if (s.matches(root, node)){
                 	result = true;
                 	break;
+                } else if (a != null && a.matches(root, node)){
+                	result = true;
+                	break;
+                } else {
+                	result = false;
                 }
             }
             return result;
@@ -82,7 +91,7 @@ public abstract class CombiningEvaluator extends Evaluator {
 		@Override
 		public Evaluator append(Evaluator e) {
 			// TODO Auto-generated method stub
-			return null;
+        	return e;
 		}
     }
 
@@ -128,8 +137,7 @@ public abstract class CombiningEvaluator extends Evaluator {
 
 		@Override
 		public Evaluator append(Evaluator e) {
-			// TODO Auto-generated method stub
-			return null;
+			return e;
 		}
     }
 }
