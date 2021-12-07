@@ -1059,8 +1059,8 @@ public class SelectorTest {
     			+ "<node.a>hello .a</node.a>"
     			+ "<node#a>hello #a</node#a>"
     			+ "</root>");
-    	assertEquals("hello .a", doc.select("node.a"));
-    	assertEquals("hello #a", doc.select("node#a"));
+    	assertEquals("hello .a", doc.select("node.a").text());
+    	assertEquals("hello #a", doc.select("node#a").text());
     }
     
     /**

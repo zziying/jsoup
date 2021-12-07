@@ -62,7 +62,7 @@ public abstract class CombiningEvaluator extends Evaluator {
         	List<Evaluator> accumulated = new ArrayList<Evaluator>();
         	// check whether we should use accumulated array
         	String elementText = node.outerHtml();
-        	String endTag = elementText.substring(elementText.length() - node.tagName().length() - 3, elementText.length());
+        	String endTag = elementText.substring(elementText.length() - node.tagName().length(), elementText.length());
         	if (endTag.contains(".")) {
             	accumulated.add(evaluators.get(num - 1));
             	for (int i = num - 2; i >= 0; i--) {
